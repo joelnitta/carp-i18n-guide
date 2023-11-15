@@ -1,6 +1,6 @@
 # carp-i18n-guide
 
-This repo houses a guide to internationalization (i18n) of Carpentries lessons.
+This repo houses a guide to internationalization (i18n) of [Carpentries](https://carpentries.org) lessons.
 
 You can [read](https://hackmd.io/oj4EsGXOQOScgB67E7f_bQ?view) or [edit](https://hackmd.io/oj4EsGXOQOScgB67E7f_bQ?edit) the guide on [HackMD](https://hackmd.io/).
 
