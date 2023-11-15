@@ -2,6 +2,8 @@
 
 [Joel H. Nitta](https://www.joelnitta.com)
 
+Source on GitHub: <https://github.com/joelnitta/carp-i18n-guide>
+
 ## Preface
 
 As of writing (2023-11), there is no official support for translation of [The Carpentries](https://carpentries.org/) materials. This  **unofficial** guide is a work in progress based on using [Crowdin](https://crowdin.com/) as the translation platform for lessons written using the [Workbench](https://carpentries.github.io/workbench/) format. There are alternative systems that have been developed for translating The Carpentries lessons, for example [this one](https://carpentries-i18n-handbook.readthedocs.io/en/latest/) by David Pérez-Suárez using Transifex and the "Styles" lesson format.
