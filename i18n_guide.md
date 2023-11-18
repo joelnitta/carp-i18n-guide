@@ -217,7 +217,9 @@ Lesson maintainers can translate entire files using machine translation ("MT") o
 
 ### Deployment
 
-Currently, only local deployment of the lesson is available, via the [dovetail](https://github.com/joelnitta/dovetail) R package.
+Deployment of the lesson is available via the [dovetail](https://github.com/joelnitta/dovetail) R package.
+
+#### Local
 
 First, install `dovetail` in R with:
 
@@ -225,16 +227,37 @@ First, install `dovetail` in R with:
 devtools::install_github("joelnitta/dovetail")
 ```
 
-Then, open an R session in the root of the lesson repo. The lesson **must be set up** with a `crowdin.yml` file and GitHub integration as described [above](#GitHub-integration). Then, you can render a translated website (for example, into Japanese) with:
+Open an R session in the root of the lesson repo. The lesson **must be set up** with a `crowdin.yml` file and GitHub integration as described [above](#GitHub-integration). Then, you can render a translated website (for example, into Japanese) with:
 
 ```
 library(dovetail)
-render_trans(lang = "ja")
+render_trans_from_branch(lang = "ja")
 ```
 
 The website will be built in the `./site/` folder, and a preview will appear in your browser. Note that although this uses the `l10n_main` branch, **it does not modify `main`** in any way.
 
 To test this, I recommend cloning `https://github.com/joelnitta/targets-workshop`, then running the code above.
+
+#### In the cloud
+
+To deploy the lesson in the cloud (online), you need to modify the `sandpaper-main.yaml` GitHub workflow. [Here is an example](https://github.com/joelnitta/targets-workshop/blob/f252b570f653cfe2758352026f1fee956f5e587b/.github/workflows/sandpaper-main.yaml) of such a modified file.
+
+The modifications make it so that the `l10n_main` branch is checked out instead of `main`, which is then used by `dovetail` to build the translated lesson. The workflow will trigger whenever there is a push to `l10n_main`.
+
+You can see an example of a continuously deployed, translated lesson (in Japanese) at <https://joelnitta.github.io/targets-workshop/>. This translation will get re-built everytime there are newly translated strings approved in the Crowdin project.
+
+### Requests for lesson authors
+
+There are a few things lesson authors in the source language can do to help with translation.
+
+1. **Do not hard-wrap lines** at 80 characters (or whatever number they would normally use). Crowdin needs to be able to detect sentences, and if it encounters a line break it will split the text at that point into different sentences. This makes translation (especially machine translation) difficult.
+2. **Use the hash-pipe** (`#|`) for writing code chunk options. It is easier to handle options written with the hash-pipe since they each appear on their own line.
+
+## Development notes
+
+The deployment scheme described here is very simple, and does not yet include multilingual publishing of a lesson on a single website. This is probably fine for unofficial, local usage, but not for official lessons (websites).
+
+One possible part of a more complicated deployment could be to use `l10n_main` as CI to test that the translation does not break the webpage (for example by inserting a typo into a code chunk). If rendering the translated website from `l10n_main` works, it could then be merged into `main`, then the real translation could be built from the `locale/` directory in `main`.
 
 ## License
 
